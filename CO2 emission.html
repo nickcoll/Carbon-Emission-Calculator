@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂ Emissions Calculator</title>
+    <style>
+        /* Reset some default styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, hwb(133 53% 16%) 10%, #f9f9f9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 05px 30px  rgb(101, 100, 100);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+
+        .input-group input:focus {
+            border: 2px solid #70e1f5;
+            outline: none;
+        }
+
+        .button {
+            background-color: hwb(133 46% 21%);
+            color: rgb(27, 26, 26);
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #4647af(0, 0%, 7%);
+            transform: translateY(-2px);
+        }
+
+        .results {
+            margin-top: 25px;
+            background-color: #dee2e2;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .results p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .results .highlight {
+            font-weight: bold;
+            color: #ff7b54;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CO₂ Emissions Calculator</h1>
+
+    <div class="input-group">
+        <label for="anthracite"><b>Anthracite Coal (tons)</b>:</label>
+        <input type="number" id="anthracite" placeholder="Enter amount in tons">
+    </div>
+
+    <div class="input-group">
+        <label for="bituminous"><b>Bituminous Coal (tons)</b>:</label>
+        <input type="number" id="bituminous" placeholder="Enter amount in tons">
+    </div>
+
+    <div class="input-group">
+        <label for="subbituminous"><b>Sub-bituminous Coal (tons)</b>:</label>
+        <input type="number" id="subbituminous" placeholder="Enter amount in tons">
+    </div>
+
+    <div class="input-group">
+        <label for="lignite"><b>Lignite (tons)</b>:</label>
+        <input type="number" id="lignite" placeholder="Enter amount in tons">
+    </div>
+
+    <div class="input-group">
+        <label for="carbonFee"><b>Carbon Fee per Tonne ($)</b>:</label>
+        <input type="number" id="carbonFee" placeholder="Enter fee per tonne">
+    </div>
+
+    <button class="button" onclick="calculateEmissions()">Calculate Emissions</button>
+
+    <div class="results" id="results">
+        <p id="totalEmissions"></p>
+        <p id="totalCarbonFee"></p>
+    </div>
+</div>
+
+<script>
+    function calculateEmissions() {
+        // Emission factors in metric tonnes of CO2 per ton of coal
+        const emissionFactors = {
+            "Anthracite Coal": 2.86,
+            "Bituminous Coal": 2.47,
+            "Sub-bituminous Coal": 2.15,
+            "Lignite": 1.86,
+        };
+
+        // Get user inputs
+        const anthracite = parseFloat(document.getElementById('anthracite').value) || 0;
+        const bituminous = parseFloat(document.getElementById('bituminous').value) || 0;
+        const subbituminous = parseFloat(document.getElementById('subbituminous').value) || 0;
+        const lignite = parseFloat(document.getElementById('lignite').value) || 0;
+        const carbonFeePerTonne = parseFloat(document.getElementById('carbonFee').value) || 0;
+
+        // Calculate emissions for each type of coal
+        const anthraciteEmissions = anthracite * emissionFactors["Anthracite Coal"];
+        const bituminousEmissions = bituminous * emissionFactors["Bituminous Coal"];
+        const subbituminousEmissions = subbituminous * emissionFactors["Sub-bituminous Coal"];
+        const ligniteEmissions = lignite * emissionFactors["Lignite"];
+
+        // Calculate total emissions and carbon fee
+        const totalEmissions = anthraciteEmissions + bituminousEmissions + subbituminousEmissions + ligniteEmissions;
+        const totalCarbonFee = totalEmissions * carbonFeePerTonne;
+
+        // Display the results
+        document.getElementById('totalEmissions').innerHTML = `Total Emissions: <span class="highlight">${totalEmissions.toFixed(2)}</span> metric tonnes of CO2`;
+        document.getElementById('totalCarbonFee').innerHTML = `Total Carbon Fee: <span class="highlight">$${totalCarbonFee.toFixed(2)}</span>`;
+
+        document.getElementById('results').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

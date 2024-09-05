@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Future</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: url('earth.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            background: rgba(76, 175, 80, 0.8); /* Semi-transparent green */
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            letter-spacing: 1px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        header p {
+            margin: 10px 0;
+            font-size: 1.3em;
+            animation: fadeIn 2s ease-in 1s;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: slideIn 1s ease-out;
+        }
+
+        .section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .intro {
+            text-align: center;
+        }
+
+        .intro h2 {
+            font-size: 2.5em;
+            color: #4CAF50;
+        }
+
+        .calculator, .carbon-credits, .energy-use {
+            background: #e2f0e9;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 1.1em;
+            color: #fff;
+            background: #4CAF50;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: rgba(76, 175, 80, 0.8); /* Semi-transparent green */
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Animation for background */
+        @keyframes backgroundAnimation {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            animation: backgroundAnimation 30s infinite linear;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Green Future</h1>
+            <p>Your Partner in Environmental Conservation</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro section">
+            <div class="container">
+                <h2>Afforestation & Carbon Credits</h2>
+                <p>Discover how tree plantation and renewable energy can help offset carbon emissions and create a sustainable future.</p>
+            </div>
+        </section>
+
+        <section class="calculator section">
+            <div class="container">
+                <h2>Calculate Your Carbon Offset</h2>
+                <form id="carbon-form">
+                    <label for="emissions">Enter Emissions to Offset (metric tons of CO2):</label>
+                    <input type="number" id="emissions" required>
+                    <button type="button" onclick="calculateLand()">Calculate Land Needed</button>
+                </form>
+                <div id="result" class="result"></div>
+            </div>
+        </section>
+
+        <section class="energy-use section">
+            <div class="container">
+                <h2>Alternative Energy Use to Reduce Direct Electricity Consumption</h2>
+                <p>Explore various ways to reduce electricity consumption and enhance energy efficiency:</p>
+                <ul>
+                    <li><strong>Solar Power:</strong> Install solar panels to generate renewable energy.</li>
+                    <li><strong>Wind Energy:</strong> Invest in wind turbines for clean energy production.</li>
+                    <li><strong>Hydropower:</strong> Utilize small-scale hydropower systems where applicable.</li>
+                    <li><strong>Energy-Efficient Appliances:</strong> Upgrade to appliances with higher energy ratings.</li>
+                    <li><strong>LED Lighting:</strong> Replace incandescent bulbs with energy-efficient LEDs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="carbon-credits section">
+            <div class="container">
+                <h2>Estimate Potential Carbon Credits</h2>
+                <form id="credits-form">
+                    <label for="sequestered">Enter Total Carbon Sequestered (metric tons of CO2):</label>
+                    <input type="number" id="sequestered" required>
+                    <label for="market-rate">Enter Market Rate for Carbon Credits (USD/metric ton CO2):</label>
+                    <input type="number" id="market-rate" step="0.01" required>
+                    <button type="button" onclick="calculateCredits()">Calculate Carbon Credits</button>
+                </form>
+                <div id="credits-result" class="result"></div>
+            </div>
+        </section>
+
+        <section class="footer">
+            <div class="container">
+                <p>&copy; 2024 Brewbyte. All Rights Reserved.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function calculateLand() {
+            const emissions = document.getElementById('emissions').value;
+            const sequestrationRate = 10; // Example rate: 10 metric tons CO2 per hectare per year
+
+            if (emissions && emissions > 0) {
+                const landRequired = emissions / sequestrationRate;
+                document.getElementById('result').innerText = 
+                    `To offset ${emissions} metric tons of CO2, you will need approximately ${landRequired.toFixed(2)} hectares of forest.`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter a valid number of emissions.';
+            }
+        }
+
+        function calculateCredits() {
+            const sequestered = document.getElementById('sequestered').value;
+            const marketRate = document.getElementById('market-rate').value;
+
+            if (sequestered && marketRate && sequestered > 0 && marketRate > 0) {
+                const creditsEarned = sequestered * marketRate;
+                document.getElementById('credits-result').innerText = 
+                    `Potential carbon credits earned: $${creditsEarned.toFixed(2)} USD`;
+            } else {
+                document.getElementById('credits-result').innerText = 'Please enter valid values for carbon sequestration and market rate.';
+            }
+        }
+    </script>
+</body>
+</html>
